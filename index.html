@@ -21,7 +21,7 @@
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
- const auth = getAuth();
+ 
 
 
   // Your web app's Firebase configuration
@@ -37,7 +37,7 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-
+const auth = getAuth();
   /*-------------------email / mot de passe----------------*/
 const formSI = document.getElementById('formsignin');
 const mdp = document.getElementById('mdp');
