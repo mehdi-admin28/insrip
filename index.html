@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<button id="goog">s'inscrire avec google</button>
+
+
+    <script type="module">
+    // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  // Ajoutez signInWithPopup ET GoogleAuthProvider ici !
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"; 
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAVcBTgJwhRiUTe4asV41OtZqAPmt27fgU",
+    authDomain: "sidialilebhar-project.firebaseapp.com",
+    projectId: "sidialilebhar-project",
+    storageBucket: "sidialilebhar-project.firebasestorage.app",
+    messagingSenderId: "824231980604",
+    appId: "1:824231980604:web:bb8f38834326acf9149d39"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  /*---------------avec google--------------------------*/
+  const provider = new GoogleAuthProvider(); /*ceci est de la part de l ia*/
+const btngoogle = document.getElementById('goog');
+if(btngoogle){
+    btngoogle.addEventListener("click",()=>{
+    signInWithPopup(auth,provider)
+    .then((a)=>{
+        alert("c est bon frerooooooo!!!!!!")
+    })
+    .catch((b)=>{
+        alert("non mais comeme!")
+    });
+    /*pas de point virgule*/
+});
+}
+else{
+    alert("y a pas de btngoogle");
+}
+</script>
+<script src="./sidi1.js"></script>
+</body>
+</html>
