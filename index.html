@@ -6,16 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-<button id="goog">s'inscrire avec google</button>
 
+<form id="formsignin">
+  <p>email</p>
+  <input type="email" id="email01">
+  <p>mot de passe</p>
+  <input type="password" id="mdp">
+  <button type="submit">S'inscrire</button>
+</form>
 
-    <script type="module">
-    // Import the functions you need from the SDKs you need
+<script type="module">
+  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-  // Ajoutez signInWithPopup ET GoogleAuthProvider ici !
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js"; 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+ const auth = getAuth();
+
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
@@ -29,26 +36,34 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstati
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  /*---------------avec google--------------------------*/
-  const provider = new GoogleAuthProvider(); /*ceci est de la part de l ia*/
-const btngoogle = document.getElementById('goog');
-if(btngoogle){
-    btngoogle.addEventListener("click",()=>{
-    signInWithPopup(auth,provider)
-    .then((a)=>{
-        alert("c est bon frerooooooo!!!!!!")
-    })
-    .catch((b)=>{
-        alert("non mais comeme!")
-    });
-    /*pas de point virgule*/
+
+
+  /*-------------------email / mot de passe----------------*/
+const formSI = document.getElementById('formsignin');
+const mdp = document.getElementById('mdp');
+const email01 = document.getElementById('email01');
+
+formSI.addEventListener("submit",(e)=>{
+  e.preventDefault();
+ const email = email01.value;
+ const password = mdp.value;
+
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    alert("réeuuuuuussssiiii");
+    // Signed up 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    alert("nnnnnooooonnnnnn");
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
 });
-}
-else{
-    alert("y a pas de btngoogle");
-}
 </script>
+
 <script src="./sidi1.js"></script>
 </body>
 </html>
