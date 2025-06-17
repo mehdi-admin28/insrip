@@ -58,7 +58,8 @@ createUserWithEmailAndPassword(auth, email, password)
   const actionCodeSettings ={url:'https://mehdi-admin28.github.io/insrip/',handleCodeInApp: true};
 sendEmailVerification(user, actionCodeSettings)
   .then(()=>{
-    alert('message envoyer vers votre email');
+    setTimeout(()=>{alert('message envoyer vers votre email');},5000);
+    
 /*------------------------verifier l email-----------------*/
 if(user){
 alert("user existe");
