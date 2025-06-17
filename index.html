@@ -43,6 +43,7 @@ const formSI = document.getElementById('formsignin');
 const mdp = document.getElementById('mdp');
 const email01 = document.getElementById('email01');
 
+
 formSI.addEventListener("submit",(e)=>{
   e.preventDefault();
  const email = email01.value;
@@ -59,6 +60,7 @@ createUserWithEmailAndPassword(auth, email, password)
 sendEmailVerification(user, actionCodeSettings)
   .then(()=>{
    alert('message envoyer vers votre email');})
+  .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
     
 /*------------------------verifier l email-----------------*/
 if(user){
@@ -75,7 +77,7 @@ user.reload()
           alert("pas encore valider et l utilisateur sera supprimer dans quelque temps");
         },5000)
         
-      }
+      };
 
 })
 .catch(()=>{alert("le reload a echoué")});
@@ -83,13 +85,9 @@ user.reload()
 else{
   alert("normalement impossible que le user n existe pas c est juste pour test !!!")
 };
-/*-----------------fin de verification d email----------------------*/
-
-
-
 })
-.catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
-  })
+
+/*-----------------fin de verification d email----------------------*/
   .catch((error) => {
     alert("nnnnnooooonnnnnn");
     const errorCode = error.code;
