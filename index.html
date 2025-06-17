@@ -60,22 +60,8 @@ createUserWithEmailAndPassword(auth, email, password)
 sendEmailVerification(user, actionCodeSettings)
   .then(()=>{
    alert("message envoyer vers votre email, veuiller le valider pour s'inscrire");
-   
-
-  })
-  .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
-    
-
-})
-
-
-  .catch((error) => {
-    alert("nnnnnooooonnnnnn");
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
-  /*------------------------verifier l email-----------------*/
+  
+/*------------------------verifier l email-----------------*/
 setTimeout(() => {
 if(user){
 alert("user existe");
@@ -101,6 +87,20 @@ else{
 };
 },120000);
 /*-----------------fin de verification d email----------------------*/
+
+  })
+  .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
+    
+
+})
+
+
+  .catch((error) => {
+    alert("nnnnnooooonnnnnn");
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
 
 });
 </script>
