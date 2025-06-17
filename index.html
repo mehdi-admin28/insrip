@@ -59,11 +59,13 @@ createUserWithEmailAndPassword(auth, email, password)
   const actionCodeSettings ={url:'https://mehdi-admin28.github.io/insrip/',handleCodeInApp: true};
 sendEmailVerification(user, actionCodeSettings)
   .then(()=>{
-   alert('message envoyer vers votre email');})
+   alert("message envoyer vers votre email, veuiller le valider pour s'inscrire");
+   setTimeout(()=>{},120000);
+
+  })
   .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
     
 /*------------------------verifier l email-----------------*/
-()=>{setTimeout(()=>{alert("veuiiler cofirmer le message qu on a envoyer vers votre email");},1200000);}
 if(user){
 alert("user existe");
 
