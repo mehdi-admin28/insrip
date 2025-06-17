@@ -20,7 +20,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
  
 
 
@@ -49,11 +49,42 @@ formSI.addEventListener("submit",(e)=>{
  const password = mdp.value;
 
 createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
+  .then((userCredential)=>{
     alert("réeuuuuuussssiiii");
     // Signed up 
     const user = userCredential.user;
-    // ...
+
+    /*SEUL-----------sendEmailVerification(user, actionCodeSettings)-------*/
+  const actionCodeSettings ={url:'https://mehdi-admin28.github.io/insrip/',handleCodeInApp: true};
+sendEmailVerification(user, actionCodeSettings)
+  .then(()=>{
+    alert('message envoyer vers votre email');
+/*------------------------verifier l email-----------------*/
+if(user){
+alert("user existe");
+
+user.reload()
+.then(()=>{
+      if(user.emailVerified){
+        alert("verified avec succé")
+      }
+      else{
+        /*en suprime l utilisateur aprés 5min par example*/
+        alert("pas encore valider et l utilisateur sera supprimer dans quelque temps");
+      }
+
+})
+.catch(()=>{alert("le reload a echoué")});
+}
+else{
+  alert("normalement impossible que le user n existe pas c est juste pour test !!!")
+};
+/*-----------------fin de verification d email----------------------*/
+
+
+
+})
+.catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
   })
   .catch((error) => {
     alert("nnnnnooooonnnnnn");
@@ -61,6 +92,7 @@ createUserWithEmailAndPassword(auth, email, password)
     const errorMessage = error.message;
     // ..
   });
+
 });
 </script>
 
