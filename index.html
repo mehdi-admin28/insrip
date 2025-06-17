@@ -58,7 +58,7 @@ createUserWithEmailAndPassword(auth, email, password)
   const actionCodeSettings ={url:'https://mehdi-admin28.github.io/insrip/',handleCodeInApp: true};
 sendEmailVerification(user, actionCodeSettings)
   .then(()=>{
-    setTimeout(()=>{alert('message envoyer vers votre email');},20000);
+   alert('message envoyer vers votre email');})
     
 /*------------------------verifier l email-----------------*/
 if(user){
@@ -71,7 +71,10 @@ user.reload()
       }
       else{
         /*en suprime l utilisateur aprés 5min par example*/
-        alert("pas encore valider et l utilisateur sera supprimer dans quelque temps");
+        setTimeout(()=>{
+          alert("pas encore valider et l utilisateur sera supprimer dans quelque temps");
+        },5000)
+        
       }
 
 })
