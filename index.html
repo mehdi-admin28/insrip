@@ -63,21 +63,19 @@ sendEmailVerification(user, actionCodeSettings)
   .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
     
 /*------------------------verifier l email-----------------*/
+setTimeout(()=>{alert("veuiiler cofirmer le message qu on a envoyer vers votre email");},1200000)
 if(user){
 alert("user existe");
 
 user.reload()
 .then(()=>{
       if(user.emailVerified){
-        alert("verified avec succé")
+        alert("vous étes inscrie avec succé")
       }
       else{
         /*en suprime l utilisateur aprés 5min par example*/
-        setTimeout(()=>{
-          alert("pas encore valider et l utilisateur sera supprimer dans quelque temps");
-          deleteUser(user);
-        },120000)
-        /*pour plus de style : effacer le contenue du form avec un reset et dire qu il y a un probleme*/
+          alert("votre compte utilisateur a été supprimer car vous n avez pas valider le message envoyer vers votre email");
+          deleteUser(user); 
       };
 
 })
