@@ -13,7 +13,8 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
   /**/
-  import { getAuth, getRedirectResult, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  // Ajoutez signInWithRedirect aux imports
+  import { getAuth, getRedirectResult, GoogleAuthProvider, signInWithRedirect } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,40 +32,83 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   /**/
-  const auth = getAuth();
+  // getAuth() doit être appelé avec l'instance de l'application
+  const auth = getAuth(app);
   /*()()()()()()()()()()()()()()()()()()()()()()()()()()()*/
+
   const btngoogle = document.getElementById('googlebtn');
-  btngoogle.addEventListener("click",()=>{
+  const provider = new GoogleAuthProvider(); // Créez l'instance du fournisseur ici
+
+  // CODE À EXÉCUTER LORSQUE LA PAGE CHARGE pour gérer le résultat de la redirection
+  // Ceci doit être fait en dehors de tout gestionnaire d'événement de clic
+  getRedirectResult(auth)
+    .then((result) => {
+      // Si result est non-null, cela signifie qu'on vient de revenir de la redirection
+      if (result) {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        alert("Connexion Google réussie ! Bienvenue, " + user.displayName);
+        // Ici, vous pouvez mettre le code pour rediriger l'utilisateur
+        // vers sa page d'accueil, afficher des informations, etc.
+        console.log("User:", user);
+        console.log("Credential:", credential);
+      } else {
+        // Si result est null, la page n'a pas été chargée suite à une redirection de connexion
+        console.log("Aucun résultat de redirection en attente.");
+        // L'utilisateur n'est pas connecté via redirection lors de ce chargement de page.
+        // Vous pouvez vérifier l'état d'authentification standard ici si besoin (onAuthStateChanged).
+      }
+    })
+    .catch((error) => {
+      // Handle Errors here if the redirect handling failed
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      // Note: customData might not always have email, depending on the error
+      const email = error.customData ? error.customData.email : null;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+      console.error("Erreur lors de la gestion de la redirection Google", error);
+      alert("Erreur lors de la connexion Google: " + errorMessage);
+
+      // Gérer les erreurs spécifiques comme auth/account-exists-with-different-credential
+      if (errorCode === 'auth/account-exists-with-different-credential') {
+        // Demander à l'utilisateur de se connecter avec le bon fournisseur ou lier les comptes
+        console.log(`Un compte existe déjà avec l'email ${email}. Veuillez vous connecter avec un autre fournisseur.`);
+        // Vous pouvez utiliser fetchSignInMethodsForEmail(auth, email) ici pour aider l'utilisateur
+      }
+    });
 
 
-
-
-    /*SINSCRIRE AVEC GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOGGGGGGGGGGLE*/
-    getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-    alert("réuuuuuuuuuuuussssiii");
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    alert("noooooooooooooooonnnn");
+  // CODE À EXÉCUTER LORSQUE L'UTILISATEUR CLIQUE SUR LE BOUTON
+  // Ceci déclenche la redirection
+  btngoogle.addEventListener("click", () => {
+      // signInWithRedirect déclenche la redirection et la suite est gérée par le getRedirectResult au chargement de la page
+      signInWithRedirect(auth, provider)
+        .catch((error) => {
+            // Cette partie du catch gère les erreurs AVANT la redirection,
+            // comme si le popup a été bloqué (pour signInWithPopup)
+            // ou si le fournisseur n'est pas activé (auth/operation-not-allowed)
+            console.error("Erreur lors du déclenchement de la redirection Google", error);
+             // Gérer les erreurs spécifiques qui peuvent survenir avant la redirection
+            if (error.code === 'auth/operation-not-allowed') {
+                alert("La connexion Google n'est pas activée pour ce projet Firebase. Veuillez l'activer dans la console.");
+            } else if (error.code === 'auth/unauthorized-domain') {
+                 alert("Le domaine de votre application n'est pas autorisé pour les opérations OAuth. Ajoutez votre domaine dans la console Firebase.");
+            }
+            // Ajoutez d'autres gestions d'erreurs si nécessaire
+        });
   });
-    /*FFFFFFFFFFFFFFFIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNN*/
-  })
+
 </script>
+
 
 <script src="./sidi1.js"></script>
 </body>
