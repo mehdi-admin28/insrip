@@ -7,22 +7,16 @@
 </head>
 <body>
 
-<form id="formsignin">
-  <p>email</p>
-  <input type="email" id="email01">
-  <p>mot de passe</p>
-  <input type="password" id="mdp">
-  <button type="submit">S'inscrire</button>
-</form>
+<button id="googlebtn"> s inscrire avec google</button>
 
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  /**/
+  import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
-  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload, signOut ,deleteUser} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
- 
-
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
@@ -36,73 +30,40 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-
-const auth = getAuth();
-  /*-------------------email / mot de passe----------------*/
-const formSI = document.getElementById('formsignin');
-const mdp = document.getElementById('mdp');
-const email01 = document.getElementById('email01');
-
-
-formSI.addEventListener("submit",(e)=>{
-  e.preventDefault();
- const email = email01.value;
- const password = mdp.value;
-
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential)=>{
-    alert("réeuuuuuussssiiii");
-    // Signed up 
-    const user = userCredential.user;
-
-    /*SEUL-----------sendEmailVerification(user, actionCodeSettings)-------*/
-  const actionCodeSettings ={url:'https://mehdi-admin28.github.io/insrip/',handleCodeInApp: true};
-sendEmailVerification(user, actionCodeSettings)
-  .then(()=>{
-   alert("message envoyer vers votre email, veuiller le valider pour s'inscrire");
-  
-/*------------------------verifier l email-----------------*/
-setTimeout(() => {
-if(user){
-alert("user existe");
-
-user.reload()
-.then(()=>{
-  
-    if(user.emailVerified){
-        alert("vous étes inscrie avec succé")
-      }
-      else{
-        /*en suprime l utilisateur aprés 5min par example*/
-          alert("votre compte utilisateur a été supprimer car vous n avez pas valider le message envoyer vers votre email");
-          deleteUser(user); 
-      };
-  
-
-})
-.catch(()=>{alert("le reload a echoué")});
-}
-else{
-  alert("normalement impossible que le user n existe pas c est juste pour test !!!")
-};
-},120000);
-/*-----------------fin de verification d email----------------------*/
-
-  })
-  .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
-    
-
-})
+  /**/
+  const auth = getAuth();
+  /*()()()()()()()()()()()()()()()()()()()()()()()()()()()*/
+  const btngoogle = document.getElementById('googlebtn');
+  btngoogle.addEventListener("click",()=>{
 
 
-  .catch((error) => {
-    alert("nnnnnooooonnnnnn");
+
+
+    /*SINSCRIRE AVEC GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOGGGGGGGGGGLE*/
+    getRedirectResult(auth)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access Google APIs.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+    alert("réuuuuuuuuuuuussssiii");
+  }).catch((error) => {
+    // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
-    // ..
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+    alert("noooooooooooooooonnnn");
   });
-
-});
+    /*FFFFFFFFFFFFFFFIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNN*/
+  })
 </script>
 
 <script src="./sidi1.js"></script>
