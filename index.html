@@ -20,7 +20,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
-  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, reload, signOut ,deleteUser} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
  
 
 
@@ -75,7 +75,7 @@ user.reload()
         /*en suprime l utilisateur aprés 5min par example*/
         setTimeout(()=>{
           alert("pas encore valider et l utilisateur sera supprimer dans quelque temps");
-          signOut(auth)
+          deleteUser(user);
         },30000)
         
       };
