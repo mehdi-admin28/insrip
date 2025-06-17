@@ -65,33 +65,10 @@ sendEmailVerification(user, actionCodeSettings)
   })
   .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
     
-/*------------------------verifier l email-----------------*/
-
-if(user){
-alert("user existe");
-
-user.reload()
-.then(()=>{
-  setTimeout(() => {
-    if(user.emailVerified){
-        alert("vous étes inscrie avec succé")
-      }
-      else{
-        /*en suprime l utilisateur aprés 5min par example*/
-          alert("votre compte utilisateur a été supprimer car vous n avez pas valider le message envoyer vers votre email");
-          deleteUser(user); 
-      };
-  },120000,true);
 
 })
-.catch(()=>{alert("le reload a echoué")});
-}
-else{
-  alert("normalement impossible que le user n existe pas c est juste pour test !!!")
-};
-})
 
-/*-----------------fin de verification d email----------------------*/
+
   .catch((error) => {
     alert("nnnnnooooonnnnnn");
     const errorCode = error.code;
@@ -100,6 +77,36 @@ else{
   });
 
 });
+
+
+
+
+/*------------------------verifier l email-----------------*/
+setTimeout(() => {
+if(user){
+alert("user existe");
+
+user.reload()
+.then(()=>{
+  
+    if(user.emailVerified){
+        alert("vous étes inscrie avec succé")
+      }
+      else{
+        /*en suprime l utilisateur aprés 5min par example*/
+          alert("votre compte utilisateur a été supprimer car vous n avez pas valider le message envoyer vers votre email");
+          deleteUser(user); 
+      };
+  
+
+})
+.catch(()=>{alert("le reload a echoué")});
+}
+else{
+  alert("normalement impossible que le user n existe pas c est juste pour test !!!")
+};
+},120000);
+/*-----------------fin de verification d email----------------------*/
 </script>
 
 <script src="./sidi1.js"></script>
