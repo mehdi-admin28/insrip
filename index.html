@@ -60,18 +60,20 @@ createUserWithEmailAndPassword(auth, email, password)
 sendEmailVerification(user, actionCodeSettings)
   .then(()=>{
    alert("message envoyer vers votre email, veuiller le valider pour s'inscrire");
-   setTimeout(()=>{},120000);
+   
 
   })
   .catch(()=>{alert("l email n existe pas ou errur de l envoi du message vers l email")});
     
 /*------------------------verifier l email-----------------*/
+
 if(user){
 alert("user existe");
 
 user.reload()
 .then(()=>{
-      if(user.emailVerified){
+  setTimeout(()=>{
+    if(user.emailVerified){
         alert("vous étes inscrie avec succé")
       }
       else{
@@ -79,6 +81,7 @@ user.reload()
           alert("votre compte utilisateur a été supprimer car vous n avez pas valider le message envoyer vers votre email");
           deleteUser(user); 
       };
+  },120000);
 
 })
 .catch(()=>{alert("le reload a echoué")});
