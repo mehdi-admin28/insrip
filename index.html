@@ -72,7 +72,7 @@ alert("user existe");
 
 user.reload()
 .then(()=>{
-  setTimeout(()=>{
+  setTimeout(() => {
     if(user.emailVerified){
         alert("vous étes inscrie avec succé")
       }
@@ -81,7 +81,7 @@ user.reload()
           alert("votre compte utilisateur a été supprimer car vous n avez pas valider le message envoyer vers votre email");
           deleteUser(user); 
       };
-  },120000);
+  },120000,true);
 
 })
 .catch(()=>{alert("le reload a echoué")});
