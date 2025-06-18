@@ -39,7 +39,11 @@ const auth = getAuth();
 auth.languageCode = 'it';
 const provider = new GoogleAuthProvider();
 /*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
-const goog = document.getElementById('goog');
+
+document.addEventListener('DOMContentLoaded', () =>{
+    const goog = document.getElementById('goog');
+});
+
 goog.addEventListener("click",()=>{
    signInWithRedirect(auth, provider);
 });
