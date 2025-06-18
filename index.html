@@ -14,6 +14,9 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
   /**/
   import { getAuth, signInWithRedirect } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  import { GoogleAuthProvider } from "firebase/auth";
+
+
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -34,6 +37,7 @@
  
 const auth = getAuth();
 auth.languageCode = 'it';
+const provider = new GoogleAuthProvider();
 /*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
 const goog = document.getElementById('goog');
 goog.addEventListener("click",()=>{
