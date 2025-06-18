@@ -35,26 +35,19 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   /**/
+  const goog = document.getElementById('goog');
   const auth = getAuth();
   auth.languageCode = 'it';
 
   const provider = new GoogleAuthProvider();
 
   /*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
-const goog = document.getElementById('goog');
+
 goog.addEventListener("click",()=>{
-    try{
+   
     signInWithRedirect(auth, provider)
-    .then(()=>{
-        console.log("signInWithRedirect semble s'être initié (bien que la redirection quitte la page)...");
-    }).catch(()=>{
-        console.log("Erreur capturée juste après l'appel signInWithRedirect:");
-    })
-}catch(error){
-    console.log("Erreur synchrone lors de l'appel à signInWithRedirect");
-}
 });
-console.log("Code après l'appel à signInWithRedirect (la redirection devrait suivre si aucune erreur).");
+
   
 </script>
     
