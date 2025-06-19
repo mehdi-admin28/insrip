@@ -27,14 +27,14 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   /**/
-  import { GoogleAuthProvider } from "firebase/auth";
+  import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
   
   const provider = new GoogleAuthProvider();
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithRedirect } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
 const auth = getAuth();
 auth.languageCode = 'it';
-import { getAuth, signInWithRedirect } from "firebase/auth";
+
 
 const auth = getAuth();
 
