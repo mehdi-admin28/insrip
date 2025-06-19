@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 goog.addEventListener("click",()=>{
   signInWithRedirect(auth, provider)
-  .then(alert("réusssi !!!"))
-  .catch(alert("non"));
+  .then(()=>{alert("réusssi !!!")})
+  .catch(()=>{alert("non")});
 });
 </script>
 </body>
