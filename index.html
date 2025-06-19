@@ -5,50 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<button id="goog">s'inscrire avec google</button>
-
 <body>
-    <script type="module">
+    <button id="goog">s'inscrire avec google</button>   
 
+<script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-  /**/
-  import { getAuth, signInWithRedirect } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-  import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-
-
-
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyAVcBTgJwhRiUTe4asV41OtZqAPmt27fgU",
-    authDomain: "sidialilebhar-project.firebaseapp.com",
-    projectId: "sidialilebhar-project",
-    storageBucket: "sidialilebhar-project.firebasestorage.app",
-    messagingSenderId: "824231980604",
-    appId: "1:824231980604:web:bb8f38834326acf9149d39"
+    apiKey: "AIzaSyAyayjUYTAcpU4HXCVh3d6pO-7A7lG6Cgk",
+    authDomain: "sidialilebhar-fef06.firebaseapp.com",
+    projectId: "sidialilebhar-fef06",
+    storageBucket: "sidialilebhar-fef06.firebasestorage.app",
+    messagingSenderId: "914545567204",
+    appId: "1:914545567204:web:e6ffa7bf64857344f653f1"
   };
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-/**/
- 
+  /**/
+  import { GoogleAuthProvider } from "firebase/auth";
+  
+  const provider = new GoogleAuthProvider();
+import { getAuth } from "firebase/auth";
+
 const auth = getAuth();
 auth.languageCode = 'it';
-const provider = new GoogleAuthProvider();
-/*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
+import { getAuth, signInWithRedirect } from "firebase/auth";
 
+const auth = getAuth();
+
+/*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
 document.addEventListener('DOMContentLoaded', () =>{
     const goog = document.getElementById('goog');
 });
 
 goog.addEventListener("click",()=>{
-   signInWithRedirect(auth, provider);
+  signInWithRedirect(auth, provider);
 });
- 
-
 </script>
 </body>
 </html>
