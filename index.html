@@ -35,17 +35,7 @@
 
 const auth = getAuth();
 auth.languageCode = 'it';
-
-
-
-/*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
-document.addEventListener('DOMContentLoaded', () =>{
-    const goog = document.getElementById('goog');
-
-goog.addEventListener("click",()=>{
-  signInWithRedirect(auth, provider)
-});
-});
+/**/
 getRedirectResult(auth)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access Google APIs.
@@ -66,6 +56,17 @@ getRedirectResult(auth)
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
+
+
+/*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
+document.addEventListener('DOMContentLoaded', () =>{
+    const goog = document.getElementById('goog');
+
+goog.addEventListener("click",()=>{
+  signInWithRedirect(auth, provider)
+});
+});
+
 </script>
 </body>
 </html>
