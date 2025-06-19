@@ -12,7 +12,7 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
   import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-  import { getAuth, signInWithRedirect ,getRedirectResult} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  import { getAuth, signInWithRedirect ,getRedirectResult,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,7 +28,9 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  /**/
+
+
+  /*----------------------------------- RESULTAT AVANT BOUTON------------------------------*/
   
   const provider = new GoogleAuthProvider();
 
@@ -38,7 +40,8 @@ auth.languageCode = 'it';
 /**/
 getRedirectResult(auth)
   .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
+    if(result){
+      // This gives you a Google Access Token. You can use it to access Google APIs.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
 
@@ -46,6 +49,8 @@ getRedirectResult(auth)
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
     // ...
+    }
+    else{alert("pas de result")};
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -56,15 +61,37 @@ getRedirectResult(auth)
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
+/*----------------------------------ajout important---------------------------*/
+ onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // L'utilisateur est connecté
+      console.log("État d'authentification Firebase changé : L'utilisateur est connecté", user);
+      document.getElementById("authStatus").innerText = `État Auth : Connecté en tant que ${user.email}`;
+      // Vous pouvez mettre à jour votre interface utilisateur pour afficher l'état connecté
+    } else {
+      // L'utilisateur est déconnecté
+      console.log("État d'authentification Firebase changé : L'utilisateur est déconnecté");
+      document.getElementById("authStatus").innerText = "État Auth : Aucun utilisateur connecté.";
+      // Vous pouvez mettre à jour votre interface utilisateur pour afficher l'état déconnecté (par exemple, afficher le bouton de connexion)
+    }
+  });
 
 
 /*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
 document.addEventListener('DOMContentLoaded', () =>{
     const goog = document.getElementById('goog');
-
-goog.addEventListener("click",()=>{
-  signInWithRedirect(auth, provider)
+if(goog){
+  goog.addEventListener("click",()=>{
+  signInWithRedirect(auth, provider).then(()=>{
+    alert("redirection true");
+  }).catch(()=>{
+    alert("redirection nuuuuull");
+  })
 });
+}
+else{
+  alert("il y a pas de goog");
+}
 });
 
 </script>
