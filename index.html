@@ -12,7 +12,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
   /**/
 import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-import { getAuth, signInWithRedirect } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+import { getAuth, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
 
 
@@ -38,6 +38,19 @@ auth.languageCode = 'it';
 
 /*-------------------------INSCRIPTION AVEC GOOGLE---------------------------*/
 document.addEventListener('DOMContentLoaded', () =>{
+getRedirectResult(auth)
+.then((result)=>{
+  if(result){
+    const user = result.user;
+  }
+  else{
+    alert("chargement de la page normal");
+  };
+}).catch(()=>{
+  alert("redirection echouer");
+});
+
+});
     const goog = document.getElementById('goog');
 if(goog){
   goog.addEventListener("click",()=>{
@@ -47,7 +60,7 @@ if(goog){
 else{
   alert("il y a pas de goog");
 }
-});  
+  
 </script>
 </body>
 </html>
