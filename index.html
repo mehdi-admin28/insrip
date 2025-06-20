@@ -46,8 +46,11 @@ getRedirectResult(auth)
   else{
     alert("chargement de la page normal");
   };
-}).catch(()=>{
-  alert("redirection echouer");
+}).catch((error)=>{
+  const errorcode = error.code;
+  const errormessage = error.message;
+  alert(`Erreur de redirection : ${errorcode} - ${errormessage}`);
+  console.log(`erreur cosde : ${errorcode}${`<br>`} eroor message : ${errormessage}`);
 });
 
 });
